@@ -46,10 +46,9 @@ fn main() {
     for i in 0..mn {
         let f = from_ids[i as usize] as usize;
         let t = to_ids[i as usize] as usize;
-        let space = capacities[t] - bottles[t];
-        let vol = min(space, bottles[f]);
-        bottles[t] += vol;
-        bottles[f] -= vol;
+        let sum = bottles[f] + bottles[t];
+        bottles[t] = min(capacities[t], sum);
+        bottles[f] += bottles[t];
     }
 
     println!("{:?}", bottles);
