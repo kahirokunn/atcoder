@@ -27,6 +27,13 @@ fn read_n_logic<T: FromStr>(n: u32, mut a: Vec<T>) -> Vec<T> {
     }
 }
 
+fn min<T: PartialOrd>(a: T, b: T) -> T {
+    match a > b {
+        true => b,
+        false => a,
+    }
+}
+
 fn main() {
     let bn = read::<u32>();
     let capacities = read_n::<u32>(bn);
@@ -40,19 +47,9 @@ fn main() {
         let f = from_ids[i as usize] as usize;
         let t = to_ids[i as usize] as usize;
         let space = capacities[t] - bottles[t];
-
-        match space >= bottles[f] {
-            // 全て移せるので全て移す
-            true => {
-                bottles[t] += bottles[f];
-                bottles[f] = 0;
-            }
-            // 全て移すと用量オーバーになるので、space分だけ移す
-            false => {
-                bottles[t] += space;
-                bottles[f] -= space;
-            }
-        };
+        let vol = min(space, bottles[f]);
+        bottles[t] += vol;
+        bottles[f] -= vol;
     }
 
     println!("{:?}", bottles);
