@@ -27,7 +27,17 @@ fn read_n_logic<T: FromStr>(n: u32, mut a: Vec<T>) -> Vec<T> {
     }
 }
 
-// O(N)
+fn radix(n: u32, from: u32, base: u32) -> u32 {
+    let a: Vec<u32> = vec![];
+    loop {
+        if n == 0 {
+            break
+        }
+        n-=1;
+        a.push(1);
+    }
+}
+
 fn main() {
     // sample input
     // 6
@@ -35,8 +45,17 @@ fn main() {
     // output: 36
     let n = read::<u32>();
     let mut numbers = read_n::<u32>(n);
-    numbers.sort();
-    numbers.reverse();
+
+    // O(N^2)
+    for i in 0..numbers.len() {
+        for j in i + 1..numbers.len() {
+            if numbers[i] < numbers[j] {
+                let tmp = numbers[i];
+                numbers[i] = numbers[j];
+                numbers[j] = tmp;
+            }
+        }
+    }
     let min = numbers.pop().unwrap() + 1;
     numbers.push(min);
 
