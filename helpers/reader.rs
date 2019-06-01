@@ -26,3 +26,9 @@ fn read_n_logic<T: FromStr>(n: u32, mut a: Vec<T>) -> Vec<T> {
         },
     }
 }
+
+fn read_line() -> String {
+    let mut input = String::new();
+    stdin().read_line(&mut input).unwrap();
+    input.trim().to_string()
+}
